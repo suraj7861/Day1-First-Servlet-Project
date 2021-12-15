@@ -25,11 +25,17 @@ public class LoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        //user regex
         String user = request.getParameter("user");
-        String pwd = request.getParameter("pwd");
         String regexPattern = "^[A-Z]{1}[a-z]{2,}$";
         Pattern pattern = Pattern.compile(regexPattern);
         Matcher matchUser = pattern.matcher(user);
+
+        //password regex
+        String pwd = request.getParameter("pwd");
+        String regexPassword = "^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[@#$%^&-+=()]).{8,}$";
+        Pattern pattern2 = Pattern.compile(regexPassword);
+        Matcher matchPassword = pattern2.matcher(pwd);
 
         String userId = getServletConfig().getInitParameter("user");
         String password = getServletConfig().getInitParameter("password");
