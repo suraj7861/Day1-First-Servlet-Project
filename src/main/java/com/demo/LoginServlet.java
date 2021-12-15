@@ -2,6 +2,8 @@ package com.demo;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -24,8 +26,11 @@ public class LoginServlet extends HttpServlet {
             throws ServletException, IOException {
 
         String user = request.getParameter("user");
-
         String pwd = request.getParameter("pwd");
+        String regexPattern = "^[A-Z]{1}[a-z]{2,}$";
+        Pattern pattern = Pattern.compile(regexPattern);
+        Matcher matchUser = pattern.matcher(user);
+
         String userId = getServletConfig().getInitParameter("user");
         String password = getServletConfig().getInitParameter("password");
         if (userId.equals(user) && password.equals(pwd)) {
